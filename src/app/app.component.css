@@ -1,0 +1,38 @@
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #f8c7cc;
+}
+
+svg.material-icons {
+  height: 24px;
+  width: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .card-container > *:not(.circle-link),
+  .terminal {
+    width: 100%;
+  }
+
+  .button-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
+  }
+}

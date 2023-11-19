@@ -22,8 +22,6 @@ const {app, BrowserWindow} = require('electron')
           slashes: true
         })
       );
-      // Open the DevTools.
-      mainWindow.webContents.openDevTools()
 
       mainWindow.on('closed', function () {
         mainWindow = null
@@ -39,3 +37,7 @@ const {app, BrowserWindow} = require('electron')
     app.on('activate', function () {
       if (mainWindow === null) createWindow()
     })
+
+    // try {
+    //   require('electron-reloader')(module)
+    // } catch (_) {}
