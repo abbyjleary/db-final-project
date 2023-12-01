@@ -9,6 +9,7 @@
         font-size: large;
         margin-left: 20px;
       "
+      routerLink=""
     >
       HOME
     </button>
@@ -20,8 +21,9 @@
         font-size: large;
         margin-left: 20px;
       "
+      routerLink="artists"
     >
-      GROUPS
+      ARTISTS
     </button>
     <button
       mat-button
@@ -31,6 +33,7 @@
         font-size: large;
         margin-left: 20px;
       "
+      routerLink="albums"
     >
       ALBUMS
     </button>
@@ -42,6 +45,7 @@
         font-size: large;
         margin-left: 20px;
       "
+      routerLink="photocards"
     >
       PHOTOCARDS
     </button>
@@ -61,12 +65,10 @@
     <mat-icon iconPositionEnd>expand_more</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>GROUP</button>
-    <button mat-menu-item>ALBUM</button>
-    <button mat-menu-item>PHOTOCARD</button>
+    <button mat-menu-item (click)="openDialog(0)">ARTIST</button>
+    <button mat-menu-item (click)="openDialog(1)">ALBUM</button>
+    <button mat-menu-item (click)="openDialog(2)">PHOTOCARD</button>
   </mat-menu>
 </div>
 
-  <app-home></app-home>
-
-<!-- <router-outlet></router-outlet> -->
+<router-outlet></router-outlet>

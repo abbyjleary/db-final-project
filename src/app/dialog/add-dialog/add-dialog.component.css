@@ -1,0 +1,38 @@
+/* my-form.component.css */
+
+form {
+    width: 550px;
+    margin: 20px auto;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  mat-label {
+    color: #2d3142; /* Adjust the color as needed */
+  }
+  
+  mat-error {
+    color: #f44336;
+  }
+  
+  mat-select {
+    min-width: 100%;
+  }
+  
+  mat-raised-button {
+    color: #2d3142;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  mat-raised-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  

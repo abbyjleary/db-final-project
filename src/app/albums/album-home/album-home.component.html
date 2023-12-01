@@ -1,1 +1,30 @@
-<p>album-home works!</p>
+<html>
+  <div class="container">
+    <div class="row">
+      <div class="col-10" style="margin-top: 18px; margin-bottom: 4px">
+        <h1>My Albums</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-4"
+        style="margin-bottom: 16px"
+        *ngFor="let album of albums"
+      >
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="
+        {{ album.imageFilePath }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ album.name }}</h5>
+            <p class="card-text">
+              <a [routerLink]="['/album', album.id]" style="color: #2d3142;">See Details</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

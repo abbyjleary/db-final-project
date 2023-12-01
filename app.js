@@ -23,6 +23,8 @@ const {app, BrowserWindow} = require('electron')
         })
       );
 
+      // mainWindow.loadFile(path.join(__dirname, '/dist/electron-app/index.html'));
+
       mainWindow.on('closed', function () {
         mainWindow = null
       })
