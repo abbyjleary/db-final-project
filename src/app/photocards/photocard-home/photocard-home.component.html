@@ -30,13 +30,17 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>Artist</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-checkbox *ngFor="let artist of artists">{{artist.name}}</mat-checkbox>
+              <mat-checkbox *ngFor="let photocard of photocards">{{
+                photocard.artName
+              }}</mat-checkbox>
             </mat-expansion-panel>
             <mat-expansion-panel class="mat-elevation-z0">
               <mat-expansion-panel-header>
                 <mat-panel-title>Album</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-checkbox *ngFor="let album of albums">{{album.name}}</mat-checkbox>
+              <mat-checkbox *ngFor="let photocard of photocards">{{
+                photocard.albumName
+              }}</mat-checkbox>
             </mat-expansion-panel>
           </div>
         </mat-menu>
@@ -51,12 +55,24 @@
             <img
               class="card-img-top"
               src="
-        {{ photocard.imageFilePath }}"
+        assets/photocards/{{ photocard.pcImgPath }}"
             />
             <div class="card-body">
-              <h5 class="card-title">{{ photocard.name }}</h5>
+              <h5 class="card-title">
+                {{ photocard.memberName }} ({{ photocard.artName }})
+              </h5>
+              <p>
+                <span *ngIf="photocard.pcOwned">Owned</span>
+                <span *ngIf="!photocard.pcOwned && photocard.pcOnTheWay">On The Way</span>
+                <span *ngIf="!photocard.pcOwned && !photocard.pcOnTheWay">Unowned</span>
+              </p>
               <p class="card-text">
-                <a style="color: #2d3142">{{ photocard.album }}</a>
+                <a
+                  [routerLink]="['/album', photocard.albumID]"
+                  style="color: #2d3142"
+                >
+                  {{ photocard.albumName }}
+                </a>
               </p>
             </div>
           </div>

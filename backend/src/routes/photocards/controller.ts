@@ -33,6 +33,26 @@ export class PhotocardsController {
     }
   }
 
+  async getByAlbum(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      const albID = request.params['id'];
+      const res = await PhotocardService.selectPhotocardByAlbum(albID);
+      return h.response(res).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
+
+  async getByArtist(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      const artID = request.params['id'];
+      const res = await PhotocardService.selectPhotocardByArtist(artID);
+      return h.response(res).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
+
   async deleteById(
     request: Request,
     h: ResponseToolkit

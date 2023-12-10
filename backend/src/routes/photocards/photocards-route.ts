@@ -45,6 +45,34 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new PhotocardsController().getById,
   },
   {
+    method: "GET",
+    path: "/photocards/album/{id}",
+    options: {
+      tags: ["api"],
+      description: "Get source book by id",
+      validate: {
+        params: joi.object({
+          id: joi.number(),
+        }),
+      },
+    },
+    handler: new PhotocardsController().getByAlbum,
+  },
+  {
+    method: "GET",
+    path: "/photocards/artist/{id}",
+    options: {
+      tags: ["api"],
+      description: "Get source book by id",
+      validate: {
+        params: joi.object({
+          id: joi.number(),
+        }),
+      },
+    },
+    handler: new PhotocardsController().getByArtist,
+  },
+  {
     method: "DELETE",
     path: "/photocards/{id}",
     options: {

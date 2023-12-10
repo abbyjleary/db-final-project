@@ -1,8 +1,8 @@
 <html>
   <div class="container">
     <div class="row">
-      <div class="col-10" style="margin-top: 18px; margin-bottom: 4px">
-        <h1>{{selectedAlbum.name}}</h1>
+      <div class="col-10" style="margin-top: 18px; margin-bottom: 4px" *ngIf="selectedAlbum">
+        <h1>{{selectedAlbum.albumName}}</h1>
       </div>
     </div>
 
@@ -16,19 +16,21 @@
         <div
           class="col-3"
           style="margin-bottom: 16px"
-          *ngFor="let artist of photocards"
+          *ngFor="let photocard of photocards"
         >
           <div class="card">
             <img
               class="card-img-top"
               style="height: 25vw"
               src="
-              {{ artist.imageFilePath }}"
+              assets/photocards/{{ photocard.pcImgPath }}"
             />
             <div class="card-body">
-              <h5 class="card-title">{{ artist.name }}</h5>
-              <p class="card-text">
-                {{ artist.album }}
+              <h5 class="card-title">{{ photocard.memberName }} ({{photocard.artName}})</h5>
+              <p>
+                <span *ngIf="photocard.pcOwned">Owned</span>
+                <span *ngIf="!photocard.pcOwned && photocard.pcOnTheWay">On The Way</span>
+                <span *ngIf="!photocard.pcOwned && !photocard.pcOnTheWay">Unowned</span>
               </p>
             </div>
           </div>

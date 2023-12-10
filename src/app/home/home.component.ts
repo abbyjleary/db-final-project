@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Artist, AlbumVersion, AlbumFull, Album } from 'types';
+import { Artist, AlbumVersion, AlbumFull, Album , PhotocardFull} from 'types';
 import { catchError, tap, of } from 'rxjs';
 
 @Component({
@@ -14,6 +14,7 @@ export class HomeComponent {
 
   artists: Artist[] = [];
   albums: AlbumFull[] = [];
+  photocards: PhotocardFull[] = [];
   error?: string = undefined
 
   ngOnInit(): void {
@@ -46,12 +47,21 @@ export class HomeComponent {
         }),
       )
       .subscribe();
-  }
 
-  photocards: { id: number; name: string; album: string; imageFilePath: string }[] = [
-    { id: 1, name: 'Nayeon', album: 'Formula of Love', imageFilePath: 'assets/NY3.jpg' },
-    { id: 2, name: 'Nayeon', album: 'Twicecoaster Lane 1', imageFilePath: 'assets/NY2.jpg' },
-    { id: 3, name: 'Nayeon', album: 'Eyes Wide Open', imageFilePath: 'assets/NY1.jpg' },
-  ];
+      this.httpClient
+      .get<PhotocardFull[]>('http://localhost:3000/photocards')
+      .pipe(
+        tap((results: PhotocardFull[]) => {
+          this.photocards = this.photocards.concat(results);
+          console.log(this.photocards)
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
 
 }

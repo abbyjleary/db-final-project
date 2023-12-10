@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
-import { AlbumFull, Artist } from 'types';
+import { AlbumFull, Artist, PhotocardFull } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
 
@@ -15,6 +15,7 @@ export class ArtistComponent implements OnInit {
   selectedArtist: Artist | undefined; // Change the type based on your artist object structure
   artists: Artist[] = [];
   albums: AlbumFull[] = [];
+  photocards: PhotocardFull[] = [];
   error?: string = undefined
 
   constructor(private route: ActivatedRoute, private httpClient: HttpClient) { }
@@ -56,15 +57,22 @@ export class ArtistComponent implements OnInit {
         }),
       )
       .subscribe();
-  }
 
-  // albums: { id: number; name: string; imageFilePath: string }[] = [
-  //   { id: 1, name: 'Formula of Love', imageFilePath: 'assets/FOL.jpg' },
-  // ];
-  photocards: { id: number; name: string; album: string; imageFilePath: string }[] = [
-    { id: 1, name: 'Nayeon', album: 'Formula of Love', imageFilePath: 'assets/NY3.jpg' },
-    { id: 2, name: 'Nayeon', album: 'Twicecoaster Lane 1', imageFilePath: 'assets/NY2.jpg' },
-    { id: 3, name: 'Nayeon', album: 'Eyes Wide Open', imageFilePath: 'assets/NY1.jpg' },
-  ];
+    this.httpClient
+      .get<PhotocardFull[]>(`http://localhost:3000/photocards/artist/${this.artistId}`)
+      .pipe(
+        tap((results: PhotocardFull[]) => {
+          this.photocards = this.photocards.concat(results);
+          console.log("Photocards")
+          console.log(this.photocards)
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
 
 }

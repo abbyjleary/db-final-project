@@ -190,3 +190,6 @@
 -- update albumversion
 -- set versionImgPath = 'TWICEcoasterLANE1-Christmas.jpeg'
 -- where versionID = 9;
+
+-- insert into photocard (albumID, pcImgPath, memberID) values(1, 'NY1.jpg', 1);
+-- insert into photocard (albumID, pcImgPath, memberID) values(4, 'NY2.jpg', 1);

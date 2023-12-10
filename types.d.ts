@@ -44,6 +44,25 @@ export interface Photocard{
     pcOnTheWay: boolean;
     pcPriority: number | null;
     pcValue: number | null;
+    memberID: number;
+}
+
+export interface PhotocardFull{
+    pcID: number;
+    albumID: number;
+    pcDesc: string | null;
+    pcImgPath: string;
+    pcOwned: boolean;
+    pcOnTheWay: boolean;
+    pcPriority: number | null;
+    pcValue: number | null;
+    albumName: string;
+    artID: number;
+    artName: string;
+    memberID: number;
+    memberName: string;
+    albumImgPath: string;
+    percentComplete: number | null;
 }
 
 export interface Member{

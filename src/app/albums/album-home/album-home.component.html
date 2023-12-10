@@ -19,9 +19,17 @@
           />
           <div class="card-body">
             <h5 class="card-title">{{ album.albumName }}</h5>
-            <p class="card-text">{{ album.version }}</p>
             <p class="card-text">
-              <a [routerLink]="['/album', album.albumID]" style="color: #2d3142;">See Details</a>
+              {{ album.version }}
+              -
+              <span *ngIf="album.owned">Owned</span>
+              <span *ngIf="!album.owned && album.onTheWay">On The Way</span>
+              <span *ngIf="!album.owned && !album.onTheWay">Unowned</span>
+            </p>
+            <p class="card-text">
+              <a [routerLink]="['/album', album.albumID]" style="color: #2d3142"
+                >See Details</a
+              >
             </p>
           </div>
         </div>

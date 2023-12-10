@@ -1,66 +1,90 @@
 <html>
   <div class="container">
     <div class="row">
-      <div class="col-10" style="margin-top: 18px; margin-bottom: 4px" *ngIf="selectedArtist">
-        <h1>{{selectedArtist.artName}}</h1>
+      <div
+        class="col-10"
+        style="margin-top: 18px; margin-bottom: 4px"
+        *ngIf="selectedArtist"
+      >
+        <h1>{{ selectedArtist.artName }}</h1>
       </div>
     </div>
 
     <div class="row">
-        <div class="col-10" style="margin-top: 4px; margin-bottom: 4px">
-          <h3>Albums</h3>
-        </div>
+      <div class="col-10" style="margin-top: 4px; margin-bottom: 4px">
+        <h3>Albums</h3>
       </div>
-      <div class="row">
-        <div
-          class="col-3"
-          style="margin-bottom: 16px"
-          *ngFor="let album of albums"
-        >
-          <div class="card">
-            <img
-              class="card-img-top"
-              style="height: 25vw;"
-              src="
+    </div>
+    <div class="row">
+      <div
+        class="col-3"
+        style="margin-bottom: 16px"
+        *ngFor="let album of albums"
+      >
+        <div class="card">
+          <img
+            class="card-img-top"
+            style="height: 25vw"
+            src="
           assets/albums/{{ album.versionImgPath }}"
-            />
-            <div class="card-body">
-              <h5 class="card-title">{{ album.version }}</h5>
-              <p class="card-text">
-                <!-- <a [routerLink]="['/artist', artist.id]">Ver artista</a> -->
-                <a>See Details</a>
-              </p>
-            </div>
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ album.albumName }}</h5>
+            <p class="card-text">
+              {{ album.version }}
+              -
+              <span *ngIf="album.owned">Owned</span>
+              <span *ngIf="!album.owned && album.onTheWay">On The Way</span>
+              <span *ngIf="!album.owned && !album.onTheWay">Unowned</span>
+            </p>
+            <p class="card-text">
+              <a [routerLink]="['/album', album.albumID]" style="color: #2d3142"
+                >See Details</a
+              >
+            </p>
           </div>
         </div>
       </div>
-  
-      <div class="row">
-        <div class="col-10" style="margin-top: 4px; margin-bottom: 4px">
-          <h3>Photocards</h3>
-        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-10" style="margin-top: 4px; margin-bottom: 4px">
+        <h3>Photocards</h3>
       </div>
-      <div class="row">
-        <div
-          class="col-3"
-          style="margin-bottom: 16px"
-          *ngFor="let artist of photocards"
-        >
-          <div class="card">
-            <img
-              class="card-img-top"
-              style="height: 25vw"
-              src="
-              {{ artist.imageFilePath }}"
-            />
-            <div class="card-body">
-              <h5 class="card-title">{{ artist.name }}</h5>
-              <p class="card-text">
-                {{ artist.album }}
-              </p>
-            </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-3"
+        style="margin-bottom: 16px"
+        *ngFor="let photocard of photocards"
+      >
+        <div class="card">
+          <img
+            class="card-img-top"
+            style="height: 25vw"
+            src="
+              assets/photocards/{{ photocard.pcImgPath }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ photocard.memberName }} ({{ photocard.artName }})
+            </h5>
+            <p>
+              <span *ngIf="photocard.pcOwned">Owned</span>
+              <span *ngIf="!photocard.pcOwned && photocard.pcOnTheWay">On The Way</span>
+              <span *ngIf="!photocard.pcOwned && !photocard.pcOnTheWay">Unowned</span>
+            </p>
+            <p class="card-text">
+              <a
+                [routerLink]="['/album', photocard.albumID]"
+                style="color: #2d3142"
+              >
+                {{ photocard.albumName }}
+              </a>
+            </p>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </html>

@@ -1,8 +1,11 @@
-import { Photocard } from "../../../types";
+import { Photocard, PhotocardFull } from "../../../types";
 import knex from "../../knex";
 
-export async function selectAllPhotocards(): Promise<Photocard[]> {
-  const res = await knex<Photocard>("PHOTOCARD");
+export async function selectAllPhotocards(): Promise<PhotocardFull[]> {
+  const res = await knex<PhotocardFull>("PHOTOCARD")
+  .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+  .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID");
   return res;
 }
 
@@ -19,6 +22,33 @@ export async function selectSinglePhotocard(targetId: number): Promise<Photocard
   res = await knex<Photocard>("PHOTOCARD").where({ pcID: targetId });
 
   return res;
+}
+
+export async function selectPhotocardByAlbum(targetId: number): Promise<PhotocardFull[]> {
+  let res: PhotocardFull[] = [];
+
+  // Get just single Photocard (if it has no child elements)
+  res = await knex<PhotocardFull>("PHOTOCARD")
+  .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+  .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
+    .where({ "ALBUM.albumID": targetId });
+
+  return res;
+
+}
+export async function selectPhotocardByArtist(targetId: number): Promise<PhotocardFull[]> {
+  let res: PhotocardFull[] = [];
+
+  // Get just single Photocard (if it has no child elements)
+  res = await knex<PhotocardFull>("PHOTOCARD")
+  .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+  .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
+    .where({ "ARTIST.artID": targetId });
+
+  return res;
+
 }
 
 export async function deletePhotocard(targetId: number): Promise<void> {
