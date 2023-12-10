@@ -35,7 +35,7 @@ export interface Photocard{
 }
 
 export interface Member{
-    mmeberID: number;
+    memberID: number;
     memberName: string;
     artID: string;
 }

@@ -3,6 +3,8 @@ import { artistRoutes } from "../routes/artists/artists-route";
 import { Boom } from "@hapi/boom";
 import { AlbumRoutes } from "../routes/albums/albums-route";
 import { albumVersionRoutes } from "../routes/albumVersions/albumVersions-route";
+import { memberRoutes } from "../routes/members/members-route";
+import { photocardsRoutes } from "../routes/photocards/photocards-route";
 
 export async function init() {
   const server = new Server({
@@ -18,8 +20,8 @@ export async function init() {
   server.route(artistRoutes);
   server.route(AlbumRoutes);
   server.route(albumVersionRoutes);
-  // server.route(MemberRoutes);
-  // server.route(photocardRoutes);
+  server.route(memberRoutes);
+  server.route(photocardsRoutes);
 
   preResponse(server);
 
