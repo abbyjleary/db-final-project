@@ -4,24 +4,61 @@
       <div class="col-10" style="margin-top: 18px; margin-bottom: 4px">
         <h1>My Photocards</h1>
       </div>
-    </div>
-    <div class="row">
-      <div
-        class="col-3"
-        style="margin-bottom: 16px"
-        *ngFor="let photocard of photocards"
-      >
-        <div class="card">
-          <img
-            class="card-img-top"
-            src="
+      <div class="col-2" style="margin-top: 18px; margin-bottom: 4px">
+        <button
+          mat-stroked-button
+          style="color: #2d3142; font-weight: bold; font-size: large"
+          [matMenuTriggerFor]="menu"
+        >
+          FILTER
+          <mat-icon iconPositionEnd>expand_more</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <div class="container" (click)="$event.stopPropagation()">
+            <mat-expansion-panel class="mat-elevation-z0">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Owned?</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-radio-group class="rg-col">
+                <mat-radio-button>Owned</mat-radio-button>
+                <mat-radio-button>Unowned</mat-radio-button>
+                <mat-radio-button>On the way</mat-radio-button>
+                <mat-radio-button [checked]="true">All</mat-radio-button>
+              </mat-radio-group>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mat-elevation-z0">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Artist</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let artist of artists">{{artist.name}}</mat-checkbox>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mat-elevation-z0">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Album</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let album of albums">{{album.name}}</mat-checkbox>
+            </mat-expansion-panel>
+          </div>
+        </mat-menu>
+      </div>
+      <div class="row">
+        <div
+          class="col-3"
+          style="margin-bottom: 16px"
+          *ngFor="let photocard of photocards"
+        >
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="
         {{ photocard.imageFilePath }}"
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{ photocard.name }}</h5>
-            <p class="card-text">
-              <a style="color: #2d3142;">{{photocard.album}}</a>
-            </p>
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ photocard.name }}</h5>
+              <p class="card-text">
+                <a style="color: #2d3142">{{ photocard.album }}</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
