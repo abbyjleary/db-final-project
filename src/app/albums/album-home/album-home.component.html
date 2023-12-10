@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div
-        class="col-4"
+        class="col-3"
         style="margin-bottom: 16px"
         *ngFor="let album of albums"
       >
@@ -15,12 +15,13 @@
           <img
             class="card-img-top"
             src="
-        {{ album.imageFilePath }}"
+        assets/albums/{{ album.versionImgPath }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ album.name }}</h5>
+            <h5 class="card-title">{{ album.albumName }}</h5>
+            <p class="card-text">{{ album.version }}</p>
             <p class="card-text">
-              <a [routerLink]="['/album', album.id]" style="color: #2d3142;">See Details</a>
+              <a [routerLink]="['/album', album.albumID]" style="color: #2d3142;">See Details</a>
             </p>
           </div>
         </div>

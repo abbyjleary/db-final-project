@@ -1,12 +1,4 @@
 <html>
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-12" style="margin-top: 18px; margin-bottom: 12px">
-        <h1>Home</h1>
-      </div>
-    </div>
-  </div> -->
-
   <div class="container">
     <div class="row">
       <div class="col-10" style="margin-top: 18px; margin-bottom: 4px">
@@ -23,12 +15,12 @@
           <img
             class="card-img-top"
             src="
-        {{ artist.imageFilePath }}"
+            assets/{{ artist.artImgPath }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ artist.name }}</h5>
+            <h5 class="card-title">{{ artist.artName }}</h5>
             <p class="card-text">
-              <a [routerLink]="['/artist', artist.id]" style="color: #2d3142;">See Details</a>
+              <a [routerLink]="['/artist', artist.artID]" style="color: #2d3142;">See Details</a>
             </p>
           </div>
         </div>

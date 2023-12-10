@@ -33,6 +33,16 @@ export class AlbumVersionsController {
     }
   }
 
+  async getByArtist(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      const artID = request.params['id'];
+      const res = await AlbumVersionsService.selectAlbumVersionByArtist(artID);
+      return h.response(res).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
+
   async deleteById(
     request: Request,
     h: ResponseToolkit

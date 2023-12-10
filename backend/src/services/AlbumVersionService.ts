@@ -1,8 +1,10 @@
-import { AlbumVersion } from "../../../types";
+import { AlbumFull, AlbumVersion } from "../../../types";
 import knex from "../../knex";
 
 export async function selectAllAlbumVersions(): Promise<AlbumVersion[]> {
-  const res = await knex<AlbumVersion>("ALBUMVERSION");
+  const res = await knex<AlbumFull>("ALBUMVERSION")
+  .join("ALBUM", "ALBUM.albumID", "=", "ALBUMVERSION.albumID")
+  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID");
   return res;
 }
 
@@ -17,6 +19,18 @@ export async function selectSingleAlbumVersion(targetId: number): Promise<AlbumV
 
   // Get just single AlbumVersion (if it has no child elements)
   res = await knex<AlbumVersion>("ALBUMVERSION").where({ versionID: targetId });
+
+  return res;
+}
+
+export async function selectAlbumVersionByArtist(targetId: number): Promise<AlbumFull[]> {
+  let res: AlbumFull[] = [];
+
+  // Get just single AlbumVersion (if it has no child elements)
+  res = await knex<AlbumFull>("ALBUMVERSION")
+    .join("ALBUM", "ALBUM.albumID", "=", "ALBUMVERSION.albumID")
+    .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
+    .where({ "ARTIST.artID": targetId });
 
   return res;
 }

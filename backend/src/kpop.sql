@@ -170,3 +170,23 @@
 --     FOREIGN KEY (albumID) REFERENCES ALBUM(albumID),
 --     FOREIGN KEY (memberID) REFERENCES MEMBER(memberID)
 -- );
+
+-- update albumversion 
+-- set versionImgPath = 'EyesWideOpen-Story.jpeg'
+-- where versionID = 1;
+
+-- update albumversion
+-- set versionImgPath = 'EyesWideOpen-Retro.jpeg'
+-- where versionID = 3;
+
+-- update albumversion
+-- set versionImgPath = 'TWICEcoasterLANE1-Apricot.jpg'
+-- where versionID = 7;
+
+-- update albumversion
+-- set versionImgPath = 'TWICEcoasterLANE1-NeonMagenta.jpg'
+-- where versionID = 8;
+
+-- update albumversion
+-- set versionImgPath = 'TWICEcoasterLANE1-Christmas.jpeg'
+-- where versionID = 9;

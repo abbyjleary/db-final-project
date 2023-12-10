@@ -23,6 +23,18 @@ export interface AlbumVersion {
     versionImgPath: string;
 }
 
+export interface AlbumFull{
+    versionID: number;
+    albumID: number;
+    version: string;
+    owned: boolean;
+    onTheWay: boolean;
+    priority: number | null;
+    artID: number;
+    albumName: string; 
+    versionImgPath: string;
+}
+
 export interface Photocard{
     pcID: number;
     albumID: number;

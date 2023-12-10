@@ -25,20 +25,21 @@
     </div>
     <div class="row">
       <div
-        class="col-4"
+        class="col-3"
         style="margin-bottom: 16px"
-        *ngFor="let artist of artists.slice(0, 3)"
+        *ngFor="let artist of artists.slice(0, 4)"
       >
         <div class="card">
           <img
             class="card-img-top"
+            style="height: 20vw"
             src="
-        {{ artist.imageFilePath }}"
+        assets/{{ artist.artImgPath }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ artist.name }}</h5>
+            <h5 class="card-title">{{ artist.artName }}</h5>
             <p class="card-text">
-              <a [routerLink]="['/artist', artist.id]" style="color: #2d3142;">See Details</a>
+              <a [routerLink]="['/artist', artist.artID]" style="color: #2d3142;">See Details</a>
             </p>
           </div>
         </div>
@@ -70,21 +71,22 @@
     </div>
     <div class="row">
       <div
-        class="col-4"
+        class="col-3"
         style="margin-bottom: 16px"
-        *ngFor="let artist of albums.slice(0, 3)"
+        *ngFor="let album of albums.slice(0, 4)"
       >
         <div class="card">
           <img
             class="card-img-top"
+            style="height: 25vw"
             src="
-        {{ artist.imageFilePath }}"
+        assets/albums/{{ album.versionImgPath }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ artist.name }}</h5>
+            <h5 class="card-title">{{ album.albumName }}</h5>
+            <p class="card-text">{{ album.version }}</p>
             <p class="card-text">
-              <!-- <a [routerLink]="['/artist', artist.id]">Ver artista</a> -->
-              <a [routerLink]="['/album', artist.id]" style="color: #2d3142;">See Details</a>
+              <a [routerLink]="['/album', album.albumID]" style="color: #2d3142;">See Details</a>
             </p>
           </div>
         </div>

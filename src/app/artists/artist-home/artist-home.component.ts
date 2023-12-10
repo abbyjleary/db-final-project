@@ -1,18 +1,34 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Artist } from 'types';
+import { catchError, tap, of } from 'rxjs';
 
 @Component({
   selector: 'app-artist-home',
   templateUrl: './artist-home.component.html',
   styleUrls: ['./artist-home.component.css']
 })
-export class ArtistHomeComponent {
+export class ArtistHomeComponent implements OnInit {
+  constructor(private httpClient: HttpClient) { }
 
-  artists: { id: number; name: string; imageFilePath: string }[] = [
-    { id: 1, name: 'TWICE', imageFilePath: 'assets/TWICE.jpg' },
-    { id: 2, name: 'Stray Kids', imageFilePath: 'assets/SKZ.jpg' },
-    { id: 3, name: 'ITZY', imageFilePath: 'assets/ITZY.jpg' },
-    { id: 4, name: '(G)I-DLE', imageFilePath: 'assets/GIDLE.jpg' },
-    { id: 5, name: 'BIBI', imageFilePath: 'assets/BIBI.jpg' },
-  ];
+  artists: Artist[] = [];
+  error?: string = undefined
+  
+  ngOnInit(): void {
+    this.httpClient
+      .get<Artist[]>('http://localhost:3000/artists')
+      .pipe(
+        tap((results: Artist[]) => {
+          this.artists = this.artists.concat(results);
+          console.log(this.artists)
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
 
 }
