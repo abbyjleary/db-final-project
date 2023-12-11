@@ -32,7 +32,6 @@ export class ArtistComponent implements OnInit {
           tap((results: Artist[]) => {
             this.artists = this.artists.concat(results);
             this.selectedArtist = results[0]; // Assuming there is only one artist in the array
-            console.log(this.selectedArtist);
           }),
           catchError((error) => {
             console.log(error);
@@ -48,7 +47,6 @@ export class ArtistComponent implements OnInit {
       .pipe(
         tap((results: AlbumFull[]) => {
           this.albums = this.albums.concat(results);
-          console.log(this.albums)
         }),
         catchError((error) => {
           console.log(error);
@@ -63,8 +61,6 @@ export class ArtistComponent implements OnInit {
       .pipe(
         tap((results: PhotocardFull[]) => {
           this.photocards = this.photocards.concat(results);
-          console.log("Photocards")
-          console.log(this.photocards)
         }),
         catchError((error) => {
           console.log(error);

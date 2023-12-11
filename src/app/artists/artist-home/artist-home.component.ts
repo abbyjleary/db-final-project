@@ -20,7 +20,6 @@ export class ArtistHomeComponent implements OnInit {
       .pipe(
         tap((results: Artist[]) => {
           this.artists = this.artists.concat(results);
-          console.log(this.artists)
         }),
         catchError((error) => {
           console.log(error);

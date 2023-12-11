@@ -19,27 +19,35 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>Owned?</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-radio-group class="rg-col">
-                <mat-radio-button>Owned</mat-radio-button>
-                <mat-radio-button>Unowned</mat-radio-button>
-                <mat-radio-button>On the way</mat-radio-button>
-                <mat-radio-button [checked]="true">All</mat-radio-button>
+              <mat-radio-group class="rg-col" [(ngModel)]="selectedOwned" (change)="updateFilters()">
+                <mat-radio-button [value]="'owned'">Owned</mat-radio-button>
+                <mat-radio-button [value]="'unowned'">Unowned</mat-radio-button>
+                <mat-radio-button [value]="'ontheway'">On the way</mat-radio-button>
+                <mat-radio-button [value]="'all'">All</mat-radio-button>
               </mat-radio-group>
             </mat-expansion-panel>
             <mat-expansion-panel class="mat-elevation-z0">
               <mat-expansion-panel-header>
                 <mat-panel-title>Artist</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-checkbox *ngFor="let photocard of photocards">{{
-                photocard.artName
+              <mat-checkbox *ngFor="let artist of artists" [(ngModel)]="artist.isSelected" (change)="updateFilters()">{{
+                artist.artName
               }}</mat-checkbox>
             </mat-expansion-panel>
             <mat-expansion-panel class="mat-elevation-z0">
               <mat-expansion-panel-header>
                 <mat-panel-title>Album</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-checkbox *ngFor="let photocard of photocards">{{
-                photocard.albumName
+              <mat-checkbox *ngFor="let album of albums" [(ngModel)]="album.isSelected" (change)="updateFilters()">{{
+                album.albumName
+              }}</mat-checkbox>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mat-elevation-z0">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Member</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let member of members" [(ngModel)]="member.isSelected" (change)="updateFilters()">{{
+                member.memberName
               }}</mat-checkbox>
             </mat-expansion-panel>
           </div>

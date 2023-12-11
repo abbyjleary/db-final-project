@@ -59,6 +59,23 @@ export const albumVersionRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new AlbumVersionsController().getByArtist,
   },
   {
+    method: "GET",
+    path: "/albumVersions/filter",
+    options: {
+      tags: ["api"],
+      description: "Get source book by filter",
+      validate: {
+        // query: joi.object({
+        //   owned: joi.boolean().optional(),
+        //   onTheWay: joi.boolean().optional(),
+        //   artID: joi.number().optional(),
+        //   albumID: joi.number().optional(),
+        // }),
+      },
+    },
+    handler: new AlbumVersionsController().getByFilter,
+  },
+  {
     method: "DELETE",
     path: "/albumVersions/{id}",
     options: {

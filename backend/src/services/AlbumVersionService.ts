@@ -1,4 +1,4 @@
-import { AlbumFull, AlbumVersion } from "../../../types";
+import { Album, AlbumFull, AlbumVersion } from "../../../types";
 import knex from "../../knex";
 
 export async function selectAllAlbumVersions(): Promise<AlbumVersion[]> {
@@ -31,6 +31,39 @@ export async function selectAlbumVersionByArtist(targetId: number): Promise<Albu
     .join("ALBUM", "ALBUM.albumID", "=", "ALBUMVERSION.albumID")
     .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
     .where({ "ARTIST.artID": targetId });
+
+  return res;
+}
+
+export async function selectAlbumVersionsByFilter(owned?: boolean, onTheWay?: boolean, artIDs?: number[], albumIDs?: number[]): Promise<AlbumFull[]> {
+  let res: AlbumFull[] = [];
+
+  try {
+    let query = knex<AlbumFull>("ALBUMVERSION")
+      .join("ALBUM", "ALBUM.albumID", "=", "ALBUMVERSION.albumID")
+      .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID");
+
+    // Apply filters based on user input
+    if (owned !== undefined) {
+      query = query.andWhere({ "ALBUMVERSION.owned": owned });
+    }
+
+    if (onTheWay !== undefined) {
+      query = query.andWhere({ "ALBUMVERSION.onTheWay": onTheWay });
+    }
+
+    if (artIDs !== undefined) {
+      query = query.whereIn("ARTIST.artID", artIDs);
+    }
+
+    if (albumIDs !== undefined) {
+      query = query.whereIn("ALBUM.albumID", albumIDs);
+    }
+
+    res = await query;
+  } catch (error) {
+    console.error(error);
+  }
 
   return res;
 }

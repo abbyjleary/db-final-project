@@ -30,7 +30,6 @@ export class AlbumComponent {
           tap((results: Album[]) => {
             this.albums = this.albums.concat(results);
             this.selectedAlbum = results[0]; // Assuming there is only one artist in the array
-            console.log(this.selectedAlbum);
           }),
           catchError((error) => {
             console.log(error);
@@ -46,8 +45,6 @@ export class AlbumComponent {
       .pipe(
         tap((results: PhotocardFull[]) => {
           this.photocards = this.photocards.concat(results);
-          console.log("Photocards")
-          console.log(this.photocards)
         }),
         catchError((error) => {
           console.log(error);

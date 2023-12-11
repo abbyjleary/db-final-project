@@ -2,6 +2,7 @@ export interface Artist {
     artID: number;
     artName: string;
     artImgPath: string;
+    isSelected: boolean;
 }
 
 export interface Album {
@@ -10,6 +11,7 @@ export interface Album {
     artID: number;
     albumImgPath: string;
     percentComplete: number | null;
+    isSelected: boolean;
 }
 
 export interface AlbumVersion {
@@ -69,4 +71,5 @@ export interface Member{
     memberID: number;
     memberName: string;
     artID: string;
+    isSelected: boolean;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PhotocardFull } from 'types';
+import { Album, Artist, Member, PhotocardFull } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
 
@@ -13,15 +13,63 @@ export class PhotocardHomeComponent {
   constructor(private httpClient: HttpClient) { }
 
   photocards: PhotocardFull[] = [];
+  artists: Artist[] = [];
+  albums: Album[] = [];
+  members: Member[] = [];
+  selelectedArtistIDs: number[] = [];
+  selectedAlbumIDs: number[] = [];
+  selectedMemberIDs: number[] = [];
+  selectedOwned: string = 'all';
   error?: string = undefined
-  
+
   ngOnInit(): void {
     this.httpClient
       .get<PhotocardFull[]>('http://localhost:3000/photocards')
       .pipe(
         tap((results: PhotocardFull[]) => {
           this.photocards = this.photocards.concat(results);
-          console.log(this.photocards)
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+
+    this.httpClient
+      .get<Artist[]>('http://localhost:3000/artists')
+      .pipe(
+        tap((results: Artist[]) => {
+          this.artists = this.artists.concat(results);
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+
+    this.httpClient
+      .get<Album[]>('http://localhost:3000/albums')
+      .pipe(
+        tap((results: Album[]) => {
+          this.albums = this.albums.concat(results);
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+
+    this.httpClient
+      .get<Member[]>('http://localhost:3000/members')
+      .pipe(
+        tap((results: Member[]) => {
+          this.members = this.members.concat(results);
         }),
         catchError((error) => {
           console.log(error);
@@ -32,20 +80,58 @@ export class PhotocardHomeComponent {
       .subscribe();
   }
 
-  // photocards: { id: number; name: string; album: string; imageFilePath: string }[] = [
-  //   { id: 1, name: 'Nayeon', album: 'Formula of Love', imageFilePath: 'assets/NY3.jpg' },
-  //   { id: 2, name: 'Nayeon', album: 'Twicecoaster Lane 1',imageFilePath: 'assets/NY2.jpg' },
-  //   { id: 3, name: 'Nayeon', album: 'Eyes Wide Open',imageFilePath: 'assets/NY1.jpg' },
-  // ];
-  // artists: { id: number; name: string; imageFilePath: string }[] = [
-  //   { id: 1, name: 'TWICE', imageFilePath: 'assets/TWICE.jpg' },
-  //   { id: 2, name: 'Stray Kids', imageFilePath: 'assets/SKZ.jpg' },
-  //   { id: 3, name: 'ITZY', imageFilePath: 'assets/ITZY.jpg' },
-  //   { id: 4, name: '(G)I-DLE', imageFilePath: 'assets/GIDLE.jpg' },
-  //   { id: 5, name: 'BIBI', imageFilePath: 'assets/BIBI.jpg' },
-  // ];
+  updateFilters() {
+    const queryParams: string[] = [];
+    const selectedArtistIds = this.artists.filter(artist => artist.isSelected).map(artist => artist.artID);
+    const selectedMemberIds = this.members.filter(member => member.isSelected).map(member => member.memberID);
+    const selectedAlbumIds = this.albums.filter(album => album.isSelected).map(album => album.albumID);
 
-  // photocards: { id: number; name: string; imageFilePath: string }[] = [
-  //   { id: 1, name: 'Formula of Love', imageFilePath: 'assets/FOL.jpg' },
-  // ];
+    if (this.selectedOwned !== 'all') {
+      if (this.selectedOwned === 'owned') {
+        queryParams.push('pcOwned=1');
+      }
+      else if (this.selectedOwned === 'unowned') {
+        queryParams.push('pcOwned=0');
+      }
+      else if (this.selectedOwned === 'ontheway') {
+        queryParams.push('pcOnTheWay=1');
+      }
+    }
+
+    if (selectedArtistIds.length > 0) {
+      const artistParams = selectedArtistIds.map(id => `artID=${id}`);
+      queryParams.push(...artistParams);
+    }
+
+    // Construct query parameters for selected members
+    if (selectedMemberIds.length > 0) {
+      const memberParams = selectedMemberIds.map(id => `memberID=${id}`);
+      queryParams.push(...memberParams);
+    }
+
+    // Construct query parameters for selected albums
+    if (selectedAlbumIds.length > 0) {
+      const albumParams = selectedAlbumIds.map(id => `albumID=${id}`);
+      queryParams.push(...albumParams);
+    }
+
+    // Combine all query parameters
+    const queryString = queryParams.join('&');
+
+    this.httpClient
+      .get<PhotocardFull[]>(`http://localhost:3000/photocards/filter?${queryString}`)
+      .pipe(
+        tap((results: PhotocardFull[]) => {
+          this.photocards = [];
+          this.photocards = this.photocards.concat(results);
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
+
 }

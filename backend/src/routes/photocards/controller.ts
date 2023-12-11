@@ -53,6 +53,27 @@ export class PhotocardsController {
     }
   }
 
+  async getByFilter(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      const pcOwned = request.query['pcOwned'];
+      const pcOnTheWay = request.query['pcOnTheWay'];
+      const artIDs = request.query['artID'];  // Use artIDs instead of artID
+      const memberIDs = request.query['memberID'];  // Use memberIDs instead of memberID
+      const albumIDs = request.query['albumID'];  // Use albumIDs instead of albumID
+  
+      // Convert to arrays if they are provided as strings
+      const artists = typeof artIDs === 'string' ? [artIDs] : artIDs;
+      const members = typeof memberIDs === 'string' ? [memberIDs] : memberIDs;
+      const albums = typeof albumIDs === 'string' ? [albumIDs] : albumIDs;
+  
+      const res = await PhotocardService.selectPhotocardByFilter(pcOwned, pcOnTheWay, artists, members, albums);
+      return h.response(res).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
+  
+
   async deleteById(
     request: Request,
     h: ResponseToolkit

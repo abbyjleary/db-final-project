@@ -23,7 +23,6 @@ export class HomeComponent {
       .pipe(
         tap((results: Artist[]) => {
           this.artists = this.artists.concat(results);
-          console.log(this.artists)
         }),
         catchError((error) => {
           console.log(error);
@@ -38,7 +37,6 @@ export class HomeComponent {
       .pipe(
         tap((results: AlbumFull[]) => {
           this.albums = this.albums.concat(results);
-          console.log(this.albums)
         }),
         catchError((error) => {
           console.log(error);
@@ -53,7 +51,6 @@ export class HomeComponent {
       .pipe(
         tap((results: PhotocardFull[]) => {
           this.photocards = this.photocards.concat(results);
-          console.log(this.photocards)
         }),
         catchError((error) => {
           console.log(error);

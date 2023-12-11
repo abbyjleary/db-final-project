@@ -43,6 +43,24 @@ export class AlbumVersionsController {
     }
   }
 
+  async getByFilter(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      const owned = request.query['owned'];
+      const onTheWay = request.query['onTheWay'];
+      const artIDs = request.query['artID'];  // Use artIDs instead of artID
+      const albumIDs = request.query['albumID'];  // Use albumIDs instead of albumID
+  
+      // Convert to arrays if they are provided as strings
+      const artists = typeof artIDs === 'string' ? [artIDs] : artIDs;
+      const albums = typeof albumIDs === 'string' ? [albumIDs] : albumIDs;
+  
+      const res = await AlbumVersionsService.selectAlbumVersionsByFilter(owned, onTheWay, artists, albums);
+      return h.response(res).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
+
   async deleteById(
     request: Request,
     h: ResponseToolkit

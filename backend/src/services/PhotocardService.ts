@@ -37,6 +37,7 @@ export async function selectPhotocardByAlbum(targetId: number): Promise<Photocar
   return res;
 
 }
+
 export async function selectPhotocardByArtist(targetId: number): Promise<PhotocardFull[]> {
   let res: PhotocardFull[] = [];
 
@@ -50,6 +51,45 @@ export async function selectPhotocardByArtist(targetId: number): Promise<Photoca
   return res;
 
 }
+
+export async function selectPhotocardByFilter(pcOwned?: boolean, pcOnTheWay?: boolean, artIDs?: number[], memberIDs?: number[], albumIDs?: number[]): Promise<PhotocardFull[]> {
+  let res: PhotocardFull[] = [];
+
+  try {
+    let query = knex<PhotocardFull>("PHOTOCARD")
+      .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+      .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+      .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID");
+
+    // Apply filters based on user input
+    if (pcOwned !== undefined) {
+      query = query.andWhere({ "PHOTOCARD.pcOwned": pcOwned });
+    }
+
+    if (pcOnTheWay !== undefined) {
+      query = query.andWhere({ "PHOTOCARD.pcOnTheWay": pcOnTheWay });
+    }
+
+    if (artIDs !== undefined) {
+      query = query.whereIn("ARTIST.artID", artIDs);
+    }
+
+    if (memberIDs !== undefined) {
+      query = query.whereIn("MEMBER.memberID", memberIDs);
+    }
+
+    if (albumIDs !== undefined) {
+      query = query.whereIn("ALBUM.albumID", albumIDs);
+    }
+
+    res = await query;
+  } catch (error) {
+    console.error(error);
+  }
+
+  return res;
+}
+
 
 export async function deletePhotocard(targetId: number): Promise<void> {
   await knex<Photocard>("PHOTOCARD")

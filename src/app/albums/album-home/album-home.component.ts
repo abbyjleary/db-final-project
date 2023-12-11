@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Album, AlbumFull, AlbumVersion } from 'types';
+import { Album, AlbumFull, AlbumVersion, Artist } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
 
@@ -11,16 +11,97 @@ import { catchError, tap, of } from 'rxjs';
 export class AlbumHomeComponent {
   constructor(private httpClient: HttpClient) { }
 
-  albums: AlbumFull[] = [];
+  allAlbums: AlbumFull[] = [];
+  artists: Artist[] = [];
+  albums: Album[] = [];
+  selelectedArtistIDs: number[] = [];
+  selectedAlbumIDs: number[] = [];
+  selectedMemberIDs: number[] = [];
+  selectedOwned: string = 'all';
   error?: string = undefined
-  
+
   ngOnInit(): void {
     this.httpClient
       .get<AlbumFull[]>('http://localhost:3000/albumVersions')
       .pipe(
         tap((results: AlbumFull[]) => {
+          this.allAlbums = this.allAlbums.concat(results);
+
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+
+    this.httpClient
+      .get<Artist[]>('http://localhost:3000/artists')
+      .pipe(
+        tap((results: Artist[]) => {
+          this.artists = this.artists.concat(results);
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+
+    this.httpClient
+      .get<Album[]>('http://localhost:3000/albums')
+      .pipe(
+        tap((results: Album[]) => {
           this.albums = this.albums.concat(results);
-          console.log(this.albums)
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
+
+  updateFilters() {
+    const queryParams: string[] = [];
+    const selectedArtistIds = this.artists.filter(artist => artist.isSelected).map(artist => artist.artID);
+    const selectedAlbumIds = this.albums.filter(album => album.isSelected).map(album => album.albumID);
+
+    if (this.selectedOwned !== 'all') {
+      if (this.selectedOwned === 'owned') {
+        queryParams.push('owned=1');
+      }
+      else if (this.selectedOwned === 'unowned') {
+        queryParams.push('owned=0');
+      }
+      else if (this.selectedOwned === 'ontheway') {
+        queryParams.push('onTheWay=1');
+      }
+    }
+
+    if (selectedArtistIds.length > 0) {
+      const artistParams = selectedArtistIds.map(id => `artID=${id}`);
+      queryParams.push(...artistParams);
+    }
+
+    // Construct query parameters for selected albums
+    if (selectedAlbumIds.length > 0) {
+      const albumParams = selectedAlbumIds.map(id => `albumID=${id}`);
+      queryParams.push(...albumParams);
+    }
+
+    // Combine all query parameters
+    const queryString = queryParams.join('&');
+
+    this.httpClient
+      .get<AlbumFull[]>(`http://localhost:3000/albumVersions/filter?${queryString}`)
+      .pipe(
+        tap((results: AlbumFull[]) => {
+          this.allAlbums = [];
+          this.allAlbums = this.allAlbums.concat(results);
         }),
         catchError((error) => {
           console.log(error);
