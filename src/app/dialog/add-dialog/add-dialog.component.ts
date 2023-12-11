@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-dialog',
@@ -9,9 +10,15 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddDialogComponent {
 
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<AddDialogComponent>) { }
 
   close(): void {
+    this.dialogRef.close();
+  }
+
+
+  onSubmit(): void {
     this.dialogRef.close();
   }
 

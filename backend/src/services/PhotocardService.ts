@@ -1,11 +1,12 @@
+import { Console } from "console";
 import { Photocard, PhotocardFull } from "../../../types";
 import knex from "../../knex";
 
 export async function selectAllPhotocards(): Promise<PhotocardFull[]> {
   const res = await knex<PhotocardFull>("PHOTOCARD")
-  .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
-  .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
-  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID");
+    .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+    .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+    .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID");
   return res;
 }
 
@@ -29,9 +30,9 @@ export async function selectPhotocardByAlbum(targetId: number): Promise<Photocar
 
   // Get just single Photocard (if it has no child elements)
   res = await knex<PhotocardFull>("PHOTOCARD")
-  .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
-  .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
-  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
+    .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+    .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+    .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
     .where({ "ALBUM.albumID": targetId });
 
   return res;
@@ -43,9 +44,9 @@ export async function selectPhotocardByArtist(targetId: number): Promise<Photoca
 
   // Get just single Photocard (if it has no child elements)
   res = await knex<PhotocardFull>("PHOTOCARD")
-  .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
-  .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
-  .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
+    .join("ALBUM", "ALBUM.albumID", "=", "PHOTOCARD.albumID")
+    .join("MEMBER", "MEMBER.memberID", "=", "PHOTOCARD.memberID")
+    .join("ARTIST", "ARTIST.artID", "=", "ALBUM.artID")
     .where({ "ARTIST.artID": targetId });
 
   return res;
@@ -88,6 +89,34 @@ export async function selectPhotocardByFilter(pcOwned?: boolean, pcOnTheWay?: bo
   }
 
   return res;
+}
+
+export async function updatePhotocardStatus(targetId: number, statusID: number): Promise<void> {
+  if (statusID == 0) {
+    await knex<Photocard>("PHOTOCARD")
+      .where({
+        pcID: targetId,
+      })
+      .update({ pcOwned: true, pcOnTheWay: false });
+  }
+
+  else if (statusID == 1) {
+    await knex<Photocard>("PHOTOCARD")
+      .where({
+        pcID: targetId,
+      })
+      .update({ pcOwned: false, pcOnTheWay: true });
+
+  }
+
+  else {
+    await knex<Photocard>("PHOTOCARD")
+      .where({
+        pcID: targetId,
+      })
+      .update({ pcOwned: false, pcOnTheWay: false });
+  }
+
 }
 
 

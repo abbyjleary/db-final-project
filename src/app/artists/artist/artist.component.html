@@ -66,22 +66,41 @@
               assets/photocards/{{ photocard.pcImgPath }}"
           />
           <div class="card-body">
-            <h5 class="card-title">
-              {{ photocard.memberName }} ({{ photocard.artName }})
-            </h5>
-            <p>
-              <span *ngIf="photocard.pcOwned">Owned</span>
-              <span *ngIf="!photocard.pcOwned && photocard.pcOnTheWay">On The Way</span>
-              <span *ngIf="!photocard.pcOwned && !photocard.pcOnTheWay">Unowned</span>
-            </p>
-            <p class="card-text">
-              <a
-                [routerLink]="['/album', photocard.albumID]"
-                style="color: #2d3142"
-              >
-                {{ photocard.albumName }}
-              </a>
-            </p>
+            <div class="row">
+              <div class="col-10">
+                <h5 class="card-title">
+                  {{ photocard.memberName }} ({{ photocard.artName }})
+                </h5>
+                <p>
+                  <span *ngIf="photocard.pcOwned">Owned</span>
+                  <span *ngIf="!photocard.pcOwned && photocard.pcOnTheWay"
+                    >On The Way</span
+                  >
+                  <span *ngIf="!photocard.pcOwned && !photocard.pcOnTheWay"
+                    >Unowned</span
+                  >
+                </p>
+                <p class="card-text">
+                  <a
+                    [routerLink]="['/album', photocard.albumID]"
+                    style="color: #2d3142"
+                  >
+                    {{ photocard.albumName }}
+                  </a>
+                </p>
+              </div>
+              <!-- <div class="col-2">
+                <button mat-icon-button class="small-icon-button" (click)="updateStatus(0)">
+                  <mat-icon>check_circle_outline</mat-icon>
+                </button>
+                <button mat-icon-button class="small-icon-button" (click)="updateStatus(1)">
+                  <mat-icon>schedule</mat-icon>
+                </button>
+                <button mat-icon-button class="small-icon-button" (click)="updateStatus(2)">
+                  <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+              </div> -->
+            </div>
           </div>
         </div>
       </div>

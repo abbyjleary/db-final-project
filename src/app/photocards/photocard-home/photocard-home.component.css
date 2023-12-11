@@ -1,12 +1,38 @@
 .card-img-top {
-    width: 100%;
-    height: 25vw;
-    object-fit: cover;
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
 }
 
 .rg-col {
-    display: flex; flex-direction: column;
-    /* display: inline-grid; */ 
-    /* display: grid; */
-    /* margin: 15px 0; */
+  display: flex;
+  flex-direction: column;
+  /* display: inline-grid; */
+  /* display: grid; */
+  /* margin: 15px 0; */
+}
+
+.small-icon-button {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 0px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  & > *[role="img"] {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
+
+  .mat-mdc-button-touch-target {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}

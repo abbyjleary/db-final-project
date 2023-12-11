@@ -19,10 +19,16 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>Owned?</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-radio-group class="rg-col" [(ngModel)]="selectedOwned" (change)="updateFilters()">
+              <mat-radio-group
+                class="rg-col"
+                [(ngModel)]="selectedOwned"
+                (change)="updateFilters()"
+              >
                 <mat-radio-button [value]="'owned'">Owned</mat-radio-button>
                 <mat-radio-button [value]="'unowned'">Unowned</mat-radio-button>
-                <mat-radio-button [value]="'ontheway'">On the way</mat-radio-button>
+                <mat-radio-button [value]="'ontheway'"
+                  >On the way</mat-radio-button
+                >
                 <mat-radio-button [value]="'all'">All</mat-radio-button>
               </mat-radio-group>
             </mat-expansion-panel>
@@ -30,17 +36,23 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>Artist</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-checkbox *ngFor="let artist of artists" [(ngModel)]="artist.isSelected" (change)="updateFilters()">{{
-                artist.artName
-              }}</mat-checkbox>
+              <mat-checkbox
+                *ngFor="let artist of artists"
+                [(ngModel)]="artist.isSelected"
+                (change)="updateFilters()"
+                >{{ artist.artName }}</mat-checkbox
+              >
             </mat-expansion-panel>
             <mat-expansion-panel class="mat-elevation-z0">
               <mat-expansion-panel-header>
                 <mat-panel-title>Album</mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-checkbox *ngFor="let album of albums" [(ngModel)]="album.isSelected" (change)="updateFilters()">{{
-                album.albumName
-              }}</mat-checkbox>
+              <mat-checkbox
+                *ngFor="let album of albums"
+                [(ngModel)]="album.isSelected"
+                (change)="updateFilters()"
+                >{{ album.albumName }}</mat-checkbox
+              >
             </mat-expansion-panel>
           </div>
         </mat-menu>
@@ -59,19 +71,58 @@
         assets/albums/{{ album.versionImgPath }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ album.albumName }}</h5>
-            <p class="card-text">
-              {{ album.version }}
-              -
-              <span *ngIf="album.owned">Owned</span>
-              <span *ngIf="!album.owned && album.onTheWay">On The Way</span>
-              <span *ngIf="!album.owned && !album.onTheWay">Unowned</span>
-            </p>
-            <p class="card-text">
-              <a [routerLink]="['/album', album.albumID]" style="color: #2d3142"
-                >See Details</a
-              >
-            </p>
+            <div class="row">
+              <div class="col-10">
+                <h5 class="card-title">{{ album.albumName }}</h5>
+                <p class="card-text">
+                  {{ album.version }}
+                  -
+                  <span *ngIf="album.owned">Owned</span>
+                  <span *ngIf="album.onTheWay">On The Way</span>
+                  <span *ngIf="!album.onTheWay && !album.owned">
+                    Unowned
+                  </span>
+                </p>
+                <p class="card-text">
+                  <a
+                    [routerLink]="['/album', album.albumID]"
+                    style="color: #2d3142"
+                    >See Details</a
+                  >
+                </p>
+              </div>
+              <div class="col-2">
+                <button
+                  mat-icon-button
+                  class="small-icon-button"
+                  (click)="updateStatus(album.versionID, 0)"
+                >
+                  <mat-icon>check_circle_outline</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  class="small-icon-button"
+                  (click)="updateStatus(album.versionID, 1)"
+                >
+                  <mat-icon>schedule</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  class="small-icon-button"
+                  (click)="updateStatus(album.versionID, 2)"
+                >
+                  <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+                <button
+                  mat-icon-button 
+                  color="warn"
+                  class="small-icon-button"
+                  (click)="updateStatus(album.versionID, 3)"
+                >
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

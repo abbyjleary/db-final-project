@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Album, AlbumFull, AlbumVersion, Artist } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-album-home',
@@ -76,6 +77,7 @@ export class AlbumHomeComponent {
       }
       else if (this.selectedOwned === 'unowned') {
         queryParams.push('owned=0');
+        queryParams.push('onTheWay=0');
       }
       else if (this.selectedOwned === 'ontheway') {
         queryParams.push('onTheWay=1');
@@ -111,4 +113,40 @@ export class AlbumHomeComponent {
       )
       .subscribe();
   }
+
+  updateStatus(versionID: number, index: number) {
+
+    this.httpClient
+      .put(`http://localhost:3000/albumVersions/${versionID}?statusID=${index}`, {}, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .pipe(
+        tap(() => {
+          this.httpClient
+          .get<AlbumFull[]>('http://localhost:3000/albumVersions')
+          .pipe(
+            tap((results: AlbumFull[]) => {
+              this.allAlbums = [];
+              this.allAlbums = this.allAlbums.concat(results);
+            }),
+            catchError((error) => {
+              console.log(error);
+              this.error = `Failed to load items: ${error.message}`;
+              return of();
+            }),
+          )
+          .subscribe();
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to update status: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
+
 }
+

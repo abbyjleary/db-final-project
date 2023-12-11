@@ -61,6 +61,18 @@ export class AlbumVersionsController {
     }
   }
 
+  async updateStatus(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      console.log("controller");
+      const versionID = request.params['id'];
+      const statusID = request.query['statusID'];
+      await AlbumVersionsService.updateAlbumVersionStatus(versionID, statusID);
+      return h.response({ message: `Successfully updated record: ${versionID}` }).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
+
   async deleteById(
     request: Request,
     h: ResponseToolkit

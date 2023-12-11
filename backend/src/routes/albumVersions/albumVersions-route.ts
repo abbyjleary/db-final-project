@@ -45,6 +45,26 @@ export const albumVersionRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new AlbumVersionsController().getById,
   },
   {
+    method: "PUT",
+    path: "/albumVersions/{id}",
+    options: {
+      tags: ["api"],
+      description: "Update source book by id",
+      validate: {
+        // params: joi.object({
+        //   id: joi.number(),
+        // }),
+        // payload: joi.object({
+        //   name: joi.string(),
+        //   publisher: joi.string().optional(),
+        //   date: joi.string().optional(),
+        //   photo_url: joi.string().optional(),
+        // }),
+      },
+    },
+    handler: new AlbumVersionsController().updateStatus,
+  },
+  {
     method: "GET",
     path: "/albumVersions/artist/{id}",
     options: {

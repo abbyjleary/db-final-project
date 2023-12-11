@@ -72,7 +72,18 @@ export class PhotocardsController {
       return h.response((error as Error).message).code(400);
     }
   }
-  
+
+  async updateStatus(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+    try {
+      console.log("controller");
+      const pcID = request.params['id'];
+      const statusID = request.query['statusID'];
+      await PhotocardService.updatePhotocardStatus(pcID, statusID);
+      return h.response({ message: `Successfully updated record: ${pcID}` }).code(200);
+    } catch (error) {
+      return h.response((error as Error).message).code(400);
+    }
+  }
 
   async deleteById(
     request: Request,

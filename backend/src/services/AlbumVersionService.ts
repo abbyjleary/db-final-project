@@ -68,6 +68,30 @@ export async function selectAlbumVersionsByFilter(owned?: boolean, onTheWay?: bo
   return res;
 }
 
+export async function updateAlbumVersionStatus(targetId: number, statusID: number): Promise<void> {
+  if (statusID == 0) {
+    await knex<AlbumVersion>("ALBUMVERSION")
+      .where({
+        versionID: targetId,
+      })
+      .update({ owned: true, onTheWay: false });
+  }
+  else if (statusID == 1) {
+    await knex<AlbumVersion>("ALBUMVERSION")
+      .where({
+        versionID: targetId,
+      })
+      .update({ owned: false, onTheWay: true });
+    }
+  else {
+    await knex<AlbumVersion>("ALBUMVERSION")
+      .where({
+        versionID: targetId,
+      })
+      .update({ owned: false, onTheWay: false });
+  }
+}
+
 export async function deleteAlbumVersion(targetId: number): Promise<void> {
   await knex<AlbumVersion>("ALBUMVERSION")
     .where({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Album, Artist, Member, PhotocardFull } from 'types';
+import { Album, Artist, Member, Photocard, PhotocardFull } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
 
@@ -92,6 +92,7 @@ export class PhotocardHomeComponent {
       }
       else if (this.selectedOwned === 'unowned') {
         queryParams.push('pcOwned=0');
+        queryParams.push('pcOnTheWay=0');
       }
       else if (this.selectedOwned === 'ontheway') {
         queryParams.push('pcOnTheWay=1');
@@ -128,6 +129,40 @@ export class PhotocardHomeComponent {
         catchError((error) => {
           console.log(error);
           this.error = `Failed to load items: ${error.message}`;
+          return of();
+        }),
+      )
+      .subscribe();
+  }
+
+  updateStatus(pcID: number, index: number) {
+
+    this.httpClient
+      .put(`http://localhost:3000/photocards/${pcID}?statusID=${index}`, {}, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .pipe(
+        tap(() => {
+          this.httpClient
+          .get<PhotocardFull[]>('http://localhost:3000/photocards')
+          .pipe(
+            tap((results: PhotocardFull[]) => {
+              this.photocards = [];
+              this.photocards = this.photocards.concat(results);
+            }),
+            catchError((error) => {
+              console.log(error);
+              this.error = `Failed to load items: ${error.message}`;
+              return of();
+            }),
+          )
+          .subscribe();
+        }),
+        catchError((error) => {
+          console.log(error);
+          this.error = `Failed to update status: ${error.message}`;
           return of();
         }),
       )

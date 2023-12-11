@@ -91,6 +91,26 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new PhotocardsController().getByFilter,
   },
   {
+    method: "PUT",
+    path: "/photocards/{id}",
+    options: {
+      tags: ["api"],
+      description: "Update source book by id",
+      validate: {
+        // params: joi.object({
+        //   id: joi.number(),
+        // }),
+        // payload: joi.object({
+        //   name: joi.string(),
+        //   publisher: joi.string().optional(),
+        //   date: joi.string().optional(),
+        //   photo_url: joi.string().optional(),
+        // }),
+      },
+    },
+    handler: new PhotocardsController().updateStatus,
+  },
+  {
     method: "DELETE",
     path: "/photocards/{id}",
     options: {

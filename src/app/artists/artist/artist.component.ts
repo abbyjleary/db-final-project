@@ -71,4 +71,8 @@ export class ArtistComponent implements OnInit {
       .subscribe();
   }
 
+updateStatus(index: number){
+  
+}
+
 }
