@@ -105,16 +105,33 @@
                   </p>
                 </div>
                 <div class="col-2">
-                  <button mat-icon-button class="small-icon-button" (click)="updateStatus(photocard.pcID, 0)">
+                  <button
+                    mat-icon-button
+                    class="small-icon-button"
+                    (click)="updateStatus(photocard.pcID, 0)"
+                  >
                     <mat-icon>check_circle_outline</mat-icon>
                   </button>
-                  <button mat-icon-button class="small-icon-button" (click)="updateStatus(photocard.pcID, 1)">
+                  <button
+                    mat-icon-button
+                    class="small-icon-button"
+                    (click)="updateStatus(photocard.pcID, 1)"
+                  >
                     <mat-icon>schedule</mat-icon>
                   </button>
-                  <button mat-icon-button class="small-icon-button" (click)="updateStatus(photocard.pcID, 2)">
+                  <button
+                    mat-icon-button
+                    class="small-icon-button"
+                    (click)="updateStatus(photocard.pcID, 2)"
+                  >
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
-                  <button mat-icon-button class="small-icon-button" (click)="updateStatus(photocard.pcID, 3)">
+                  <button
+                    mat-icon-button
+                    class="small-icon-button"
+                    color="warn"
+                    (click)="deletePhotocard(photocard.pcID)"
+                  >
                     <mat-icon>delete_outline</mat-icon>
                   </button>
                 </div>

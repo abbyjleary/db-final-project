@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialog } from '@angular/material/dialog';
 import { AddArtistDialogComponent } from './dialog/add-artist-dialog/add-artist-dialog.component';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Member, Artist, AlbumFull, Album } from 'types';
 import { catchError, tap, of } from 'rxjs';
 import { AddAlbumDialogComponent } from './dialog/add-album-dialog/add-album-dialog.component';
+import { AddPhotocardDialogComponent } from './dialog/add-photocard-dialog/add-photocard-dialog.component';
 
 export interface DialogData {
   artists: string[];
@@ -141,6 +138,25 @@ export class AppComponent implements OnInit {
           }
         }
       })
+    }
+    if (choice === 2) {
+      const dialogRef = this.dialog.open(AddPhotocardDialogComponent, {
+        width: '600px',
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.httpClient.post('http://localhost:3000/photocards', {
+            albumID: result.album.albumID,
+            memberID: result.member.memberID,
+            pcImgPath: result.cardImgPath
+          }, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).subscribe();
+        }
+      });
     }
   }
 }

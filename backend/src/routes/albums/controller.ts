@@ -33,6 +33,16 @@ export class AlbumsController {
         }
     }
 
+    async getByArtist(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
+        try {
+          const artID = request.params['id'];
+          const res = await AlbumsService.selectAlbumByArtist(artID);
+          return h.response(res).code(200);
+        } catch (error) {
+          return h.response((error as Error).message).code(400);
+        }
+      }
+
     async deleteById(
         request: Request,
         h: ResponseToolkit

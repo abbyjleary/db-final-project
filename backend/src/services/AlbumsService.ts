@@ -21,6 +21,15 @@ export async function selectSingleAlbum(targetId: number): Promise<Album[]> {
   return res;
 }
 
+export async function selectAlbumByArtist(targetId: number): Promise<Album[]> {
+  let res: Album[] = [];
+
+  // Get just single Album (if it has no child elements)
+  res = await knex<Album>("Album").where({ artID: targetId });
+
+  return res;
+}
+
 export async function deleteAlbum(targetId: number): Promise<void> {
   await knex<Album>("Album")
     .where({

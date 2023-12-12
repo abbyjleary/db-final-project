@@ -27,6 +27,8 @@ import { ArtistComponent } from './artists/artist/artist.component';
 import { AlbumComponent } from './albums/album/album.component';
 import { AddArtistDialogComponent } from './dialog/add-artist-dialog/add-artist-dialog.component';
 import { AddAlbumDialogComponent } from './dialog/add-album-dialog/add-album-dialog.component';
+import { AddPhotocardDialogComponent } from './dialog/add-photocard-dialog/add-photocard-dialog.component';
+import { DeleteConfirmationDialogComponent } from './dialog/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { AddAlbumDialogComponent } from './dialog/add-album-dialog/add-album-dia
     ArtistComponent,
     AlbumComponent,
     AddArtistDialogComponent,
-    AddAlbumDialogComponent
+    AddAlbumDialogComponent,
+    AddPhotocardDialogComponent,
+    DeleteConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

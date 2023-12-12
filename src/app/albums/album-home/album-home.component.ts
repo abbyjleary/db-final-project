@@ -3,6 +3,8 @@ import { Album, AlbumFull, AlbumVersion, Artist } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
 import { query } from '@angular/animations';
+import { DeleteConfirmationDialogComponent } from 'src/app/dialog/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-album-home',
@@ -10,7 +12,7 @@ import { query } from '@angular/animations';
   styleUrls: ['./album-home.component.css']
 })
 export class AlbumHomeComponent {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private dialog: MatDialog) { }
 
   allAlbums: AlbumFull[] = [];
   artists: Artist[] = [];
@@ -135,5 +137,27 @@ export class AlbumHomeComponent {
       .subscribe();
   }
 
-}
+  deleteAlbum(versionID: number) {
 
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {});
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.httpClient
+          .delete(`http://localhost:3000/albumVersions/${versionID}`)
+          .pipe(
+            tap(() => {
+              this.updateFilters();
+            }),
+            catchError((error) => {
+              console.log(error);
+              this.error = `Failed to delete album: ${error.message}`;
+              return of();
+            }),
+          )
+          .subscribe();
+      }
+    })
+  }
+}

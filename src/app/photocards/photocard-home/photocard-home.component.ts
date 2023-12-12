@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Album, Artist, Member, Photocard, PhotocardFull } from 'types';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, of } from 'rxjs';
+import { DeleteConfirmationDialogComponent } from 'src/app/dialog/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-photocard-home',
@@ -10,7 +12,7 @@ import { catchError, tap, of } from 'rxjs';
 })
 export class PhotocardHomeComponent {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, public dialog: MatDialog) { }
 
   photocards: PhotocardFull[] = [];
   artists: Artist[] = [];
@@ -154,6 +156,34 @@ export class PhotocardHomeComponent {
         }),
       )
       .subscribe();
+  }
+
+  deletePhotocard(pcID: number) {
+
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {});
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.httpClient
+          .delete(`http://localhost:3000/photocards/${pcID}`, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .pipe(
+            tap(() => {
+              this.updateFilters();
+            }),
+            catchError((error) => {
+              console.log(error);
+              this.error = `Failed to delete item: ${error.message}`;
+              return of();
+            }),
+          )
+          .subscribe();
+      }
+    })
   }
 
 }

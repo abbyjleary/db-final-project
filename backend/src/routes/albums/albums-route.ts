@@ -45,6 +45,20 @@ export const AlbumRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new AlbumsController().getById,
   },
   {
+    method: "GET",
+    path: "/albums/artist/{id}",
+    options: {
+      tags: ["api"],
+      description: "Get source book by id",
+      validate: {
+        params: joi.object({
+          id: joi.number(),
+        }),
+      },
+    },
+    handler: new AlbumsController().getByArtist,
+  },
+  {
     method: "DELETE",
     path: "/albums/{id}",
     options: {

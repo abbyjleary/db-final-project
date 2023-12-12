@@ -44,6 +44,7 @@ export const artistRoutes: ServerRoute<ReqRefDefaults>[] = [
     },
     handler: new ArtistsController().getById,
   },
+  
   {
     method: "DELETE",
     path: "/artists/{id}",

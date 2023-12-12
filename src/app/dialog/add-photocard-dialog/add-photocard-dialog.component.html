@@ -1,0 +1,57 @@
+<div class="container" style="padding: 24px; max-height: 75vh">
+  <h3>Add Album</h3>
+  <form [formGroup]="photocardForm">
+    <div>
+      <h6>Album Name</h6>
+      <mat-form-field appearance="fill">
+        <mat-label>Select Album</mat-label>
+        <mat-select formControlName="album">
+          <mat-option *ngFor="let album of albums" [value]="album">{{ album.albumName }}</mat-option>
+        </mat-select>
+      </mat-form-field>      
+    </div>
+    <div>
+        <h6>Member</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>Select Member</mat-label>
+          <mat-select formControlName="member">
+            <mat-option *ngFor="let member of members" [value]="member">{{ member.memberName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <h6>Photocard Image Name</h6>
+        </div>
+        <div class="col-auto">
+          <div class="container" style="padding-bottom: 8px">
+            <button
+              mat-icon-button
+              class="small-icon-button"
+              matTooltip="To import an image, move the image into the assets/photocards folder and enter the filename with the extension here (e.g. Nayeon-1.jpg)"
+              matTooltipPosition="right"
+            >
+              <mat-icon>help_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="cardImgPath"
+          placeholder="Photocard Image Name"
+        />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="col-9"></div>
+      <div class="col-3">
+        <button mat-stroked-button type="submit" (click)="onSubmit()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

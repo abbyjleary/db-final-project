@@ -14,7 +14,7 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new PhotocardsController().getAll,
   },
   {
-    method: "PUT",
+    method: "POST",
     path: "/photocards",
     options: {
       tags: ["api"],
