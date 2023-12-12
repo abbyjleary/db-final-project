@@ -14,7 +14,7 @@ export const artistRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new ArtistsController().getAll,
   },
   {
-    method: "PUT",
+    method: "POST",
     path: "/artists",
     options: {
       tags: ["api"],

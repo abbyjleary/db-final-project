@@ -14,7 +14,7 @@ export const AlbumRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new AlbumsController().getAll,
   },
   {
-    method: "PUT",
+    method: "POST",
     path: "/albums",
     options: {
       tags: ["api"],

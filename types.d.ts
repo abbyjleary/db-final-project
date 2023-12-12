@@ -70,6 +70,6 @@ export interface PhotocardFull{
 export interface Member{
     memberID: number;
     memberName: string;
-    artID: string;
+    artID: number;
     isSelected: boolean;
 }

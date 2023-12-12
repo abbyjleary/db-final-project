@@ -1,0 +1,79 @@
+<div class="container" style="padding: 24px; max-height: 75vh">
+  <h3>Add Album</h3>
+  <form [formGroup]="albumForm">
+    <div>
+      <h6>Artist Name</h6>
+      <mat-form-field appearance="fill">
+        <mat-label>Select Artist</mat-label>
+        <mat-select formControlName="artID">
+          <mat-option *ngFor="let artist of artists" [value]="artist.artID">
+            {{ artist.artName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <h6>Album Name</h6>
+      <mat-form-field appearance="fill">
+        <mat-label>Select or Create Album</mat-label>
+        <input
+          matInput
+          formControlName="album"
+          [matAutocomplete]="autoAlbum"
+        />
+        <mat-autocomplete
+          #autoAlbum="matAutocomplete"
+          [displayWith]="displayAlbum"
+        >
+          <mat-option *ngFor="let album of albums" [value]="album">
+            {{ album.albumName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div>
+      <h6>Version Name</h6>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="versionName"
+          placeholder="Version Name"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <h6>Version Image Name</h6>
+        </div>
+        <div class="col-auto">
+          <div class="container" style="padding-bottom: 8px">
+            <button
+              mat-icon-button
+              class="small-icon-button"
+              matTooltip="To import an image, move the image into the assets/albums folder and enter the filename with the extension here (e.g. FormulaOfLove.jpg)"
+              matTooltipPosition="right"
+            >
+              <mat-icon>help_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="versionImgPath"
+          placeholder="Version Image Name"
+        />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="col-9"></div>
+      <div class="col-3">
+        <button mat-stroked-button type="submit" (click)="onSubmit()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

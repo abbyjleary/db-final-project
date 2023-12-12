@@ -1,0 +1,80 @@
+<div class="container" style="padding: 24px; max-height: 75vh">
+  <h3>Add Artist</h3>
+  <form [formGroup]="artistForm">
+    <!-- Your form controls go here -->
+    <!-- Example with members -->
+    <div>
+      <h6>Artist Name</h6>
+      <mat-form-field>
+        <input matInput formControlName="artName" placeholder="Artist Name" />
+      </mat-form-field>
+    </div>
+    <div>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <h6>Artist Image Name</h6>
+        </div>
+        <div class="col-auto">
+          <div class="container" style="padding-bottom: 8px">
+            <button
+              mat-icon-button
+              class="small-icon-button"
+              matTooltip="To import an image, move the image into the assets/artists folder and enter the filename with the extension here (e.g. TWICE.jpg)"
+              matTooltipPosition="right"
+            >
+              <mat-icon>help_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="artImgPath"
+          placeholder="Artist Image Name"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <div formArrayName="members">
+        <h6>Members</h6>
+        <div
+          *ngFor="let member of members.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="memberName"
+              placeholder="Member Name"
+            />
+          </mat-form-field>
+          <!-- Add other member-related controls here if needed -->
+          <button
+            mat-icon-button
+            (click)="deleteMember(i)"
+            matTooltip="Remove Member"
+            matTooltipPosition="right"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <button
+            mat-icon-button
+            (click)="addMember()"
+            matTooltip="Add Member"
+            matTooltipPosition="right"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div class="col-3">
+          <button mat-stroked-button type="submit" (click)="onSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

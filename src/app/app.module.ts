@@ -12,6 +12,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +25,8 @@ import { AlbumHomeComponent } from './albums/album-home/album-home.component';
 import { PhotocardHomeComponent } from './photocards/photocard-home/photocard-home.component';
 import { ArtistComponent } from './artists/artist/artist.component';
 import { AlbumComponent } from './albums/album/album.component';
-import { AddDialogComponent } from './dialog/add-dialog/add-dialog.component';
+import { AddArtistDialogComponent } from './dialog/add-artist-dialog/add-artist-dialog.component';
+import { AddAlbumDialogComponent } from './dialog/add-album-dialog/add-album-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,8 @@ import { AddDialogComponent } from './dialog/add-dialog/add-dialog.component';
     PhotocardHomeComponent,
     ArtistComponent,
     AlbumComponent,
-    AddDialogComponent
+    AddArtistDialogComponent,
+    AddAlbumDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,10 @@ import { AddDialogComponent } from './dialog/add-dialog/add-dialog.component';
     MatRadioModule,
     HttpClientModule,
     MatExpansionModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],

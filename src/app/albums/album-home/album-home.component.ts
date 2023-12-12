@@ -124,20 +124,7 @@ export class AlbumHomeComponent {
       })
       .pipe(
         tap(() => {
-          this.httpClient
-          .get<AlbumFull[]>('http://localhost:3000/albumVersions')
-          .pipe(
-            tap((results: AlbumFull[]) => {
-              this.allAlbums = [];
-              this.allAlbums = this.allAlbums.concat(results);
-            }),
-            catchError((error) => {
-              console.log(error);
-              this.error = `Failed to load items: ${error.message}`;
-              return of();
-            }),
-          )
-          .subscribe();
+          this.updateFilters();
         }),
         catchError((error) => {
           console.log(error);

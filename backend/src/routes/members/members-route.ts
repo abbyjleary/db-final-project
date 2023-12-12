@@ -14,7 +14,7 @@ export const memberRoutes: ServerRoute<ReqRefDefaults>[] = [
         handler: new MembersController().getAll,
     },
     {
-        method: "PUT",
+        method: "POST",
         path: "/members",
         options: {
         tags: ["api"],

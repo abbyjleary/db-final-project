@@ -145,20 +145,7 @@ export class PhotocardHomeComponent {
       })
       .pipe(
         tap(() => {
-          this.httpClient
-          .get<PhotocardFull[]>('http://localhost:3000/photocards')
-          .pipe(
-            tap((results: PhotocardFull[]) => {
-              this.photocards = [];
-              this.photocards = this.photocards.concat(results);
-            }),
-            catchError((error) => {
-              console.log(error);
-              this.error = `Failed to load items: ${error.message}`;
-              return of();
-            }),
-          )
-          .subscribe();
+          this.updateFilters();
         }),
         catchError((error) => {
           console.log(error);

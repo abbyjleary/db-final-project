@@ -14,7 +14,7 @@ export const albumVersionRoutes: ServerRoute<ReqRefDefaults>[] = [
     handler: new AlbumVersionsController().getAll,
   },
   {
-    method: "PUT",
+    method: "POST",
     path: "/albumVersions",
     options: {
       tags: ["api"],
