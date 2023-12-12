@@ -12,7 +12,7 @@ import { catchError, tap, of } from 'rxjs';
 })
 export class ArtistComponent implements OnInit {
   artistId: number = -1;
-  selectedArtist: Artist | undefined; // Change the type based on your artist object structure
+  selectedArtist: Artist | undefined;
   artists: Artist[] = [];
   albums: AlbumFull[] = [];
   photocards: PhotocardFull[] = [];
@@ -21,9 +21,7 @@ export class ArtistComponent implements OnInit {
   constructor(private route: ActivatedRoute, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    // Subscribe to route parameter changes
     this.route.params.subscribe((params) => {
-      // Access the artist ID from the route
       this.artistId = params['id'];
 
       this.httpClient
@@ -31,7 +29,7 @@ export class ArtistComponent implements OnInit {
         .pipe(
           tap((results: Artist[]) => {
             this.artists = this.artists.concat(results);
-            this.selectedArtist = results[0]; // Assuming there is only one artist in the array
+            this.selectedArtist = results[0]; 
           }),
           catchError((error) => {
             console.log(error);

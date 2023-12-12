@@ -106,19 +106,16 @@ export class PhotocardHomeComponent {
       queryParams.push(...artistParams);
     }
 
-    // Construct query parameters for selected members
     if (selectedMemberIds.length > 0) {
       const memberParams = selectedMemberIds.map(id => `memberID=${id}`);
       queryParams.push(...memberParams);
     }
 
-    // Construct query parameters for selected albums
     if (selectedAlbumIds.length > 0) {
       const albumParams = selectedAlbumIds.map(id => `albumID=${id}`);
       queryParams.push(...albumParams);
     }
 
-    // Combine all query parameters
     const queryString = queryParams.join('&');
 
     this.httpClient

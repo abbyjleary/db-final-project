@@ -8,7 +8,6 @@ export const artistRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/artists",
     options: {
       tags: ["api"],
-      description: "Return all source books",
       validate: {},
     },
     handler: new ArtistsController().getAll,
@@ -18,15 +17,7 @@ export const artistRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/artists",
     options: {
       tags: ["api"],
-      description: "Add new source book",
-      validate: {
-        // payload: joi.object({
-        //   name: joi.string(),
-        //   publisher: joi.string().optional(),
-        //   date: joi.string().optional(),
-        //   photo_url: joi.string().optional(),
-        // }),
-      },
+      validate: {},
     },
     handler: new ArtistsController().addNew,
   },
@@ -35,7 +26,6 @@ export const artistRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/artists/{id}",
     options: {
       tags: ["api"],
-      description: "Get source book by id",
       validate: {
         params: joi.object({
           id: joi.number(),
@@ -50,7 +40,6 @@ export const artistRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/artists/{id}",
     options: {
       tags: ["api"],
-      description: "Delete source book by id",
       validate: {
         params: joi.object({
           id: joi.number(),

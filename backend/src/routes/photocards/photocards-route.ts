@@ -8,7 +8,6 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards",
     options: {
       tags: ["api"],
-      description: "Return all source books",
       validate: {},
     },
     handler: new PhotocardsController().getAll,
@@ -18,15 +17,7 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards",
     options: {
       tags: ["api"],
-      description: "Add new source book",
-      validate: {
-        // payload: joi.object({
-        //   name: joi.string(),
-        //   publisher: joi.string().optional(),
-        //   date: joi.string().optional(),
-        //   photo_url: joi.string().optional(),
-        // }),
-      },
+      validate: {},
     },
     handler: new PhotocardsController().addNew,
   },
@@ -35,7 +26,6 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards/{id}",
     options: {
       tags: ["api"],
-      description: "Get source book by id",
       validate: {
         params: joi.object({
           id: joi.number(),
@@ -49,7 +39,6 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards/album/{id}",
     options: {
       tags: ["api"],
-      description: "Get source book by id",
       validate: {
         params: joi.object({
           id: joi.number(),
@@ -63,7 +52,6 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards/artist/{id}",
     options: {
       tags: ["api"],
-      description: "Get source book by id",
       validate: {
         params: joi.object({
           id: joi.number(),
@@ -77,16 +65,7 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards/filter",
     options: {
       tags: ["api"],
-      description: "Get source book by id",
-      validate: {
-        // query: joi.object({
-        //   owned: joi.boolean().optional(),
-        //   onTheWay: joi.boolean().optional(),
-        //   artistId: joi.number().optional(),
-        //   albumId: joi.number().optional(),
-        //   memberId: joi.number().optional(),
-        // }),
-      },
+      validate: {},
     },
     handler: new PhotocardsController().getByFilter,
   },
@@ -95,18 +74,7 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards/{id}",
     options: {
       tags: ["api"],
-      description: "Update source book by id",
-      validate: {
-        // params: joi.object({
-        //   id: joi.number(),
-        // }),
-        // payload: joi.object({
-        //   name: joi.string(),
-        //   publisher: joi.string().optional(),
-        //   date: joi.string().optional(),
-        //   photo_url: joi.string().optional(),
-        // }),
-      },
+      validate: {},
     },
     handler: new PhotocardsController().updateStatus,
   },
@@ -115,7 +83,6 @@ export const photocardsRoutes: ServerRoute<ReqRefDefaults>[] = [
     path: "/photocards/{id}",
     options: {
       tags: ["api"],
-      description: "Delete source book by id",
       validate: {
         params: joi.object({
           id: joi.number(),

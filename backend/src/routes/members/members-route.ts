@@ -8,7 +8,6 @@ export const memberRoutes: ServerRoute<ReqRefDefaults>[] = [
         path: "/members",
         options: {
         tags: ["api"],
-        description: "Return all source books",
         validate: {},
         },
         handler: new MembersController().getAll,
@@ -18,15 +17,7 @@ export const memberRoutes: ServerRoute<ReqRefDefaults>[] = [
         path: "/members",
         options: {
         tags: ["api"],
-        description: "Add new source book",
-        validate: {
-            // payload: joi.object({
-            //   name: joi.string(),
-            //   publisher: joi.string().optional(),
-            //   date: joi.string().optional(),
-            //   photo_url: joi.string().optional(),
-            // }),
-        },
+        validate: {},
         },
         handler: new MembersController().addNew,
     },
@@ -35,7 +26,6 @@ export const memberRoutes: ServerRoute<ReqRefDefaults>[] = [
         path: "/members/{id}",
         options: {
         tags: ["api"],
-        description: "Get source book by id",
         validate: {
             params: joi.object({
             id: joi.number(),
@@ -49,7 +39,6 @@ export const memberRoutes: ServerRoute<ReqRefDefaults>[] = [
         path: "/members/{id}",
         options: {
         tags: ["api"],
-        description: "Delete source book by id",
         validate: {
             params: joi.object({
             id: joi.number(),

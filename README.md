@@ -1,27 +1,36 @@
-# ElectronApp
+# CS 4620 K-pop Database
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+## Getting Started
 
-## Development server
+To run the program, follow these steps:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Prerequisites
+Node is installed
 
-## Code scaffolding
+### Steps
+Navigate to `electron-app` folder in the terminal
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `npm i` to install dependencies
 
-## Build
+If sqlite3 is not alreayd installed, run `npm install sqlite3 --save`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Navigate to `src` and decompress `assets.zip`
 
-## Running unit tests
+Navigate back to `electron-app`, then to `backend`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm start` to start running the database (leave this tab open)
 
-## Running end-to-end tests
+Open a new terminal and navigate back to `electron-app`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Here there are two options: 
 
-## Further help
+* To run as a desktop application:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+    * Run `npm start` and a window will pop up with the application
+
+* To run as a web application
+
+    * Run `ng serve`
+    * Go to `http://localhost:4200/` in a web browser
+
+There is not a reason to choose one over the other, my original plan was to create a desktop application but I found that it can also be run easily as a webapp.

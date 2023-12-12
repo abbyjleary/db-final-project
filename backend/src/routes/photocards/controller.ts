@@ -57,11 +57,10 @@ export class PhotocardsController {
     try {
       const pcOwned = request.query['pcOwned'];
       const pcOnTheWay = request.query['pcOnTheWay'];
-      const artIDs = request.query['artID'];  // Use artIDs instead of artID
-      const memberIDs = request.query['memberID'];  // Use memberIDs instead of memberID
-      const albumIDs = request.query['albumID'];  // Use albumIDs instead of albumID
+      const artIDs = request.query['artID']; 
+      const memberIDs = request.query['memberID']; 
+      const albumIDs = request.query['albumID'];
   
-      // Convert to arrays if they are provided as strings
       const artists = typeof artIDs === 'string' ? [artIDs] : artIDs;
       const members = typeof memberIDs === 'string' ? [memberIDs] : memberIDs;
       const albums = typeof albumIDs === 'string' ? [albumIDs] : albumIDs;

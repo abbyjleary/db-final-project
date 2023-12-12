@@ -9,6 +9,35 @@
   
       <div class="row">
         <div class="col-10" style="margin-top: 4px; margin-bottom: 4px">
+          <h3>Album Versions</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-3"
+          style="margin-bottom: 16px"
+          *ngFor="let album of albums"
+        >
+          <div class="card">
+            <img
+              class="card-img-top"
+              style="height: 25vw"
+              src="
+              assets/albums/{{ album.versionImgPath }}"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ album.albumName }}</h5>
+              <p>
+                <span *ngIf="album.owned">Owned</span>
+                <span *ngIf="!album.owned && album.onTheWay">On The Way</span>
+                <span *ngIf="!album.owned && !album.onTheWay">Unowned</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-10" style="margin-top: 4px; margin-bottom: 4px">
           <h3>Photocards</h3>
         </div>
       </div>

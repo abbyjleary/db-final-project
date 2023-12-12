@@ -11,11 +11,9 @@ export async function createMember(newMember: Member): Promise<number> {
   return id[0];
 }
 
-// Return everything from Member joined with id and name from other tables
 export async function selectSingleMember(targetId: number): Promise<Member[]> {
   let res: Member[] = [];
 
-  // Get just single Member (if it has no child elements)
   res = await knex<Member>("MEMBER").where({ memberID: targetId });
 
   return res;

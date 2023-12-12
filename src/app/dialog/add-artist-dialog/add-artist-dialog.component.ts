@@ -12,7 +12,7 @@ export class AddArtistDialogComponent {
 
   artistForm = this.fb.group({
     artName: ['', Validators.required],
-    artImgPath: ['', Validators.required], // Updated to handle files
+    artImgPath: ['', Validators.required],
     members: this.fb.array([])
   });
 
