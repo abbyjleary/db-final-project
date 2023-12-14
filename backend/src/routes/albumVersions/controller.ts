@@ -72,7 +72,6 @@ export class AlbumVersionsController {
 
   async updateStatus(request: Request, h: ResponseToolkit): Promise<ResponseObject> {
     try {
-      console.log("controller");
       const versionID = request.params['id'];
       const statusID = request.query['statusID'];
       await AlbumVersionsService.updateAlbumVersionStatus(versionID, statusID);
