@@ -1,5 +1,9 @@
 # CS 4620 K-pop Database
 
+## Video Walkthrough
+
+A video walkthrough of the app can be found here: https://youtu.be/A85r53XHGgg
+
 ## Getting Started
 
 To run the program, follow these steps:
